@@ -11,6 +11,8 @@ import {selectorError, selectorStatus} from "./store/app-selector";
 
 function App() {
     const dispatch = useDispatch()
+
+
     const status = useSelector(selectorStatus)
     const error = useSelector(selectorError)
 

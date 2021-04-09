@@ -10,12 +10,12 @@ import Paper from '@material-ui/core/Paper';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../routes/Routes";
 import {conversionDate} from "../utils/helperFunction";
-import {selectorEmployees} from "../store/app-selector";
+import {selectorEmployeesID} from "../store/app-selector";
 
 
 export const Doctors = () => {
 
-    const doctors = useSelector(selectorEmployees)
+    const doctors = useSelector(selectorEmployeesID)
 
     function createTableData(id: number, FIO: string, birthDate: string) {
         return {id, FIO, birthDate};
