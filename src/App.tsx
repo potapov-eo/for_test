@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import {BrowserRouter as Router} from "react-router-dom"
+import {Routes} from "./routes/Routes";
+import {useDispatch, useSelector} from "react-redux";
+import {getDoctors, getWorkLogs} from "./store/app-reducer";
+import {ErrorSnackbar} from "./components/ErrorSnackBar";
+import {selectorError, selectorStatus} from "./store/app-selector";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch()
+    const status = useSelector(selectorStatus)
+    const error = useSelector(selectorError)
+
+    useEffect(() => {
+        dispatch(getWorkLogs())
+        dispatch(getDoctors())
+    }, [dispatch])
+
+    return (<Router>
+            <div className="App">
+                {error !== null && <ErrorSnackbar/>}
+                {status === 'loading' && <LinearProgress/>}
+                <Routes/>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
